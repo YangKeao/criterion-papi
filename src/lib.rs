@@ -65,7 +65,7 @@ impl Measurement for TotIns {
         let mut values = [0i64];
 
         unsafe {
-            let retval = PAPI_read(self.event_set.clone(), values.as_mut_ptr());
+            let retval = PAPI_stop(self.event_set.clone(), values.as_mut_ptr());
             if retval != PAPI_OK as i32 {
                 panic!("PAPI_read failed")
             }
