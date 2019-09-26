@@ -11,4 +11,4 @@ license = "Apache-2.0"
 [dependencies]
 criterion = "0.3"
 libc = "0.2"
-libpapi_sys = "0.1.0"
+libpapi_sys = "0.1"
