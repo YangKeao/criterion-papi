@@ -13,7 +13,7 @@ pub struct TotIns {
 
 impl TotIns {
     pub fn new() -> TotIns {
-        let event_set = PAPI_NULL;
+        let mut event_set = PAPI_NULL;
         let mut papi_tot_ins: std::os::raw::c_int = 0;
 
         unsafe {
@@ -25,6 +25,11 @@ impl TotIns {
             let retval = PAPI_event_name_to_code(std::ffi::CStr::from_bytes_with_nul_unchecked(b"PAPI_TOT_INS\0").as_ptr(), &mut papi_tot_ins);
             if retval != PAPI_OK as i32 {
                 panic!("PAPI_event_name_to_code failed {}", retval)
+            }
+
+            let retval = PAPI_create_eventset(&mut event_set);
+            if retval != PAPI_OK as i32 {
+                panic!("PAPI_create_eventset error {}", retval)
             }
 
             let retval = PAPI_add_event(event_set.clone(), papi_tot_ins as i32);
