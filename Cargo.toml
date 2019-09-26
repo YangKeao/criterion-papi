@@ -1,0 +1,14 @@
+[package]
+name = "criterion-cpu-time"
+version = "0.1.0"
+authors = ["Yang Keao <keao.yang@yahoo.com>"]
+edition = "2018"
+description = "an alternative cpu measurement for criterion"
+license = "Apache-2.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+criterion = "0.3"
+libc = "0.2"
+libpapi_sys = "0.1.0"
