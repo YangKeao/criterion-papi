@@ -1,4 +1,4 @@
-# criterion-tot-ins
+# criterion-papi
 
 ```rs
 let mut c = criterion::Criterion::default()
