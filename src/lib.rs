@@ -1,20 +1,21 @@
-extern crate libpapi_sys;
+use std::ffi::CString;
 
 use criterion::measurement::{Measurement, ValueFormatter};
 use libpapi_sys::*;
 
 mod formatter;
-
 use formatter::InsFormatter;
 
-pub struct TotIns {
+pub struct PapiMeasurement {
     event_set: std::os::raw::c_int,
 }
 
-impl TotIns {
-    pub fn new() -> TotIns {
+impl PapiMeasurement {
+    pub fn new(event: &str) -> PapiMeasurement {
         let mut event_set = PAPI_NULL;
         let mut papi_tot_ins: std::os::raw::c_int = 0;
+
+        let event_name = CString::new(event).expect("CString::new failed");
 
         unsafe {
             let retval = PAPI_library_init(PAPI_VER_CURRENT);
@@ -22,7 +23,7 @@ impl TotIns {
                 panic!("PAPI_library_init failed {}", retval)
             }
 
-            let retval = PAPI_event_name_to_code(std::ffi::CStr::from_bytes_with_nul_unchecked(b"PAPI_TOT_INS\0").as_ptr(), &mut papi_tot_ins);
+            let retval = PAPI_event_name_to_code(event_name.into_raw(), &mut papi_tot_ins);
             if retval != PAPI_OK as i32 {
                 panic!("PAPI_event_name_to_code failed {}", retval)
             }
@@ -38,13 +39,13 @@ impl TotIns {
             }
         }
 
-        return TotIns {
+        return PapiMeasurement {
             event_set,
         }
     }
 }
 
-impl Measurement for TotIns {
+impl Measurement for PapiMeasurement {
     type Intermediate = i64;
     type Value = i64;
 
