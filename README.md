@@ -1,5 +1,9 @@
 # criterion-tot-ins
 
-## Implementation
+```rs
+let mut c = criterion::Criterion::default()
+    .with_measurement(criterion_papi::PapiMeasurement::new("PAPI_TOT_INS"))
+    .configure_from_args();
+```
 
-Get counts from PAPI_TOT_INS event;
+It accepts any PAPI event as the argument of `new`, then the counter was used as measurement.
