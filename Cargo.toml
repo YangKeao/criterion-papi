@@ -1,6 +1,6 @@
 [package]
 name = "criterion-papi"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Yang Keao <keao.yang@yahoo.com>"]
 edition = "2018"
 description = "an alternative cpu measurement for criterion"
@@ -11,4 +11,4 @@ license = "Apache-2.0"
 [dependencies]
 criterion = "0.3"
 libc = "0.2"
-libpapi_sys = "0.1"
+libpapi_sys = { version = "0.2", git = "https://github.com/sticnarf/rust-papi.git", branch = "bindgen-0.57" }
